@@ -1,57 +1,57 @@
-// displays current date on webpage
-var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm a");
-$("#currentDay").html(currentDate);
+// Display today's day and date
+var todayDate = moment().format('dddd, MMM Do YYYY h:mm a');
+$("#currentDay").html(todayDate);
 
-// button click listener
-$(document).ready(function() {
-    $(".saveBtn").on("click", function() {
-        // gets vals from html
-        var text = $(this).siblings(".text-description").val();
+$(document).ready(function () {
+    // saveBtn click listener 
+    $(".saveBtn").on("click", function () {
+        // Get nearby values of the description in JQuery
+        var text = $(this).siblings(".description").val();
         var time = $(this).parent().attr("id");
 
-        // saves text and time in local storage
+        // Save text in local storage
         localStorage.setItem(time, text);
-    });
-
-    //function acts to differentiate the labeled times versus the current time
-    function timeTrack() {
-        // gets the current number of hours
+    })
+   
+    function timeTracker() {
+        //get current number of hours.
         var timeNow = moment().hour();
 
-        // time loop over set blocks in html
-        $(".hour-block").each(function() {
-            var hourBlock = parseInt($(this).attr("id").split("hour")[1]);
+        // loop over time blocks
+        $(".time-block").each(function () {
+            var blockTime = parseInt($(this).attr("id").split("hour")[1]);
 
-            //if statement to check time + add classes dependant on time
-            if (hourBlock < timeNow) {
+            // To check the time and add the classes for background indicators
+            if (blockTime < timeNow) {
                 $(this).removeClass("future");
                 $(this).removeClass("present");
                 $(this).addClass("past");
-            } else if (hourBlock === timeNow) {
+            }
+            else if (blockTime === timeNow) {
+                $(this).removeClass("past");
                 $(this).removeClass("future");
-                $(this).removeClass("past");
                 $(this).addClass("present");
-            } else {
-                $(this).removeClass("past");
+            }
+            else {
                 $(this).removeClass("present");
+                $(this).removeClass("past");
                 $(this).addClass("future");
-            };
+
+            }
         })
+    }
 
-    };
+    // Get item from local storage if any
+    $("#hour8 .description").val(localStorage.getItem("hour8"));
+    $("#hour9 .description").val(localStorage.getItem("hour9"));
+    $("#hour10 .description").val(localStorage.getItem("hour10"));
+    $("#hour11 .description").val(localStorage.getItem("hour11"));
+    $("#hour12 .description").val(localStorage.getItem("hour12"));
+    $("#hour13 .description").val(localStorage.getItem("hour13"));
+    $("#hour14 .description").val(localStorage.getItem("hour14"));
+    $("#hour15 .description").val(localStorage.getItem("hour15"));
+    $("#hour16 .description").val(localStorage.getItem("hour16"));
+    $("#hour17 .description").val(localStorage.getItem("hour17"));
 
-    // retrieve local storage if present
-    $("#hour8 .text-description").val(localStorage.getItem("hour8"));
-    $("#hour9 .text-description").val(localStorage.getItem("hour9"));
-    $("#hour10 .text-description").val(localStorage.getItem("hour10"));
-    $("#hour11 .text-description").val(localStorage.getItem("hour11"));
-    $("#hour12 .text-description").val(localStorage.getItem("hour12"));
-    $("#hour13 .text-description").val(localStorage.getItem("hour13"));
-    $("#hour14 .text-description").val(localStorage.getItem("hour14"));
-    $("#hour15 .text-description").val(localStorage.getItem("hour15"));
-    $("#hour16 .text-description").val(localStorage.getItem("hour16"));
-
-
-    // call the function
-    timeTrack();
-});
+    timeTracker();
+})
